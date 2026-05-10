@@ -1,0 +1,269 @@
+.app {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  min-height: 100dvh;
+  min-width: 100dvw;
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+
+  background: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px), radial-gradient(ellipse at 50% 50%, #1a1a1a 0%, #050505 100%);
+  background-size: auto, auto, auto;
+  background-size: 40px 40px, 40px 40px, 100% 100%;
+
+  transition: 0.5s ease-in-out all;
+}
+
+.app::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  opacity: 0;
+  background: linear-gradient(180deg, #a0c4ff 0%, #b5e2fa 30%, #fdffb6 100%);
+  transition: 0.5s ease-in-out all;
+}
+
+.app.rest::after {
+  opacity: 1;
+}
+
+.main {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.time {
+  font-size: 72pt;
+  color: #ababab;
+  margin-top: auto;
+  margin-bottom: auto;
+  font-weight: 400;
+  text-shadow: none;
+  /* убираем предыдущую тень */
+}
+
+.time.work {
+  background: linear-gradient(45deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientPulse 3s ease infinite alternate;
+}
+
+.time.rest {
+  animation: none;
+  background: none;
+  -webkit-text-fill-color: #fff5e6;
+  /* тёплый кремовый оттенок */
+
+  /* Многослойное мягкое свечение */
+  text-shadow:
+    0 0 10px rgba(255, 220, 180, 0.9),
+    0 0 30px rgba(255, 200, 150, 0.7),
+    0 0 60px rgba(255, 180, 130, 0.5),
+    0 0 100px rgba(255, 160, 120, 0.3);
+
+  /* Плавная анимация только свечения */
+  animation: gentleGlow 4s ease-in-out infinite alternate;
+  transform: scale(1);
+}
+
+@keyframes gradientPulse {
+  0% {
+    background-position: 0% 50%;
+    transform: scale(1);
+  }
+
+  50% {
+    background-position: 100% 50%;
+    transform: scale(1.05);
+  }
+
+  100% {
+    background-position: 0% 50%;
+    transform: scale(1);
+  }
+}
+
+@keyframes gentleGlow {
+  from {
+    text-shadow:
+      0 0 8px rgba(255, 220, 180, 0.8),
+      0 0 20px rgba(255, 200, 150, 0.5),
+      0 0 40px rgba(255, 180, 130, 0.3),
+      0 0 70px rgba(255, 160, 120, 0.2);
+  }
+
+  to {
+    text-shadow:
+      0 0 15px rgba(255, 230, 200, 0.95),
+      0 0 40px rgba(255, 210, 170, 0.8),
+      0 0 80px rgba(255, 190, 150, 0.6),
+      0 0 120px rgba(255, 170, 140, 0.4);
+  }
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stage-indicator {
+  display: flex;
+  list-style: none;
+  align-items: center;
+}
+
+.stage-indicator li {
+  padding: 8px 16px;
+  color: #FFF;
+  background: #484848;
+  transition: 1s ease-in-out background;
+}
+
+.stage-indicator li.active {
+  background: #1e1e1e;
+}
+
+.stage-indicator li:first-child {
+  border-radius: 16px 0 0 16px;
+}
+
+.stage-indicator li:last-child {
+  border-radius: 0 16px 16px 0;
+}
+
+.clouds {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: 0.3s ease-in-out all;
+}
+
+.clouds.shown {
+  opacity: 1;
+}
+
+.cloud {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  box-shadow:
+    0 0 40px rgba(255, 255, 255, 0.8),
+    0 0 80px rgba(255, 255, 255, 0.3);
+}
+
+.cloud::before,
+.cloud::after {
+  content: '';
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  box-shadow: inherit;
+}
+
+.cloud1 {
+  width: 180px;
+  height: 80px;
+  top: 15%;
+  left: -200px;
+  border-radius: 40px;
+  animation: floatCloud1 28s linear infinite;
+}
+
+.cloud1::before {
+  width: 100px;
+  height: 100px;
+  top: -50px;
+  left: 30px;
+}
+
+.cloud1::after {
+  width: 120px;
+  height: 90px;
+  top: -30px;
+  left: 90px;
+}
+
+.cloud2 {
+  width: 220px;
+  height: 90px;
+  top: 45%;
+  left: -250px;
+  border-radius: 50px;
+  animation: floatCloud2 35s linear infinite;
+  animation-delay: -10s;
+}
+
+.cloud2::before {
+  width: 130px;
+  height: 130px;
+  top: -60px;
+  left: 40px;
+}
+
+.cloud2::after {
+  width: 140px;
+  height: 100px;
+  top: -40px;
+  left: 100px;
+}
+
+.cloud3 {
+  width: 160px;
+  height: 70px;
+  top: 75%;
+  left: -300px;
+  border-radius: 35px;
+  animation: floatCloud3 32s linear infinite;
+  animation-delay: -15s;
+}
+
+.cloud3::before {
+  width: 90px;
+  height: 90px;
+  top: -40px;
+  left: 20px;
+}
+
+.cloud3::after {
+  width: 100px;
+  height: 80px;
+  top: -25px;
+  left: 80px;
+}
+
+@keyframes floatCloud1 {
+  to {
+    transform: translateX(110vw);
+  }
+}
+
+@keyframes floatCloud2 {
+  to {
+    transform: translateX(110vw);
+  }
+}
+
+@keyframes floatCloud3 {
+  to {
+    transform: translateX(110vw);
+  }
+}
