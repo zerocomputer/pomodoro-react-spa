@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import './App.css'
 import { PauseIcon, PlayIcon, RotateCcwIcon } from 'lucide-react'
 import { StageIndicator } from './components/StageIndicator';
@@ -24,24 +24,24 @@ function App() {
   const [timerStage, setTimerStage] = useState('work');
   const [iteration, setIteration] = useState(1);
 
-  function play() {
-    if (status.state === 'play') return;
+  const play = useCallback(() => {
+    if (timerState === 'play') return;
     setTimerState('play');
-  }
+  }, [timerState]);
 
-  function pause() {
-    if (timerState.state === 'pause') return;
+  const pause = useCallback(() => {
+    if (timerState === 'pause') return;
     setTimerState('pause');
-  }
+  }, [timerState]);
 
-  function reset() {
+  const reset = useCallback(() => {
     setTimerState('pause');
     const seconds = timerStage === 'work' ? WORK_TIME : REST_TIME;
     setTimer({
       seconds,
       text: secondsToText(seconds),
     });
-  }
+  }, [timerStage]);
 
   useEffect(() => {
     if (timerState !== 'play') return;
